@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOOB CUP ROULETTE</title>
+</head>
+
+<body>
+
+  <h1>☕ NOOB CUP ROULETTE</h1>
+
+  <p>Enter your cup number.</p>
+
+  <input
+    type="number"
+    id="cupNumber"
+    min="1"
+    max="100"
+    placeholder="037"
+  >
+
+  <button onclick="spin()">SPIN 🎰</button>
+
+  <h2 id="result"></h2>
+
+  <script>
+    function spin() {
+      const cup = document.getElementById("cupNumber").value;
+      const result = document.getElementById("result");
+
+      if (!cup || cup < 1 || cup > 100) {
+        result.innerText = "Enter a cup number from #001 to #100 😭";
+        return;
+      }
+
+      result.innerText = "🎰 SPINNING...";
+
+      setTimeout(() => {
+        result.innerText = "YOU'RE A NOOB ☕😂";
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
