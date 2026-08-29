@@ -3,44 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>NOOB CUP ROULETTE</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <h1>☕ NOOB CUP ROULETTE</h1>
+  <div class="container">
 
-  <p>Enter your cup number.</p>
+    <div class="logo">NOOB.</div>
 
-  <input
-    type="number"
-    id="cupNumber"
-    min="1"
-    max="100"
-    placeholder="037"
-  >
+    <div class="tagline">
+      You bought coffee. Now gamble responsibly. ☕
+    </div>
 
-  <button onclick="spin()">SPIN 🎰</button>
+    <div class="card">
 
-  <h2 id="result"></h2>
+      <h2>CUP ROULETTE 🎰</h2>
+
+      <p class="subtitle">
+        Enter your cup number to spin.
+      </p>
+
+      <input
+        type="number"
+        id="cupNumber"
+        min="1"
+        max="100"
+        placeholder="037"
+      >
+
+      <button onclick="spin()">
+        SPIN 🎰
+      </button>
+
+      <div id="result"></div>
+
+    </div>
+
+    <div class="footer">
+      NOOB COFFEE · HYDERABAD
+    </div>
+
+  </div>
 
   <script>
+
     function spin() {
+
       const cup = document.getElementById("cupNumber").value;
       const result = document.getElementById("result");
 
       if (!cup || cup < 1 || cup > 100) {
-        result.innerText = "Enter a cup number from #001 to #100 😭";
+
+        result.innerText =
+          "Enter a cup number from #001 to #100 😭";
+
         return;
       }
 
       result.innerText = "🎰 SPINNING...";
 
       setTimeout(() => {
-        result.innerText = "YOU'RE A NOOB ☕😂";
+
+        result.innerText =
+          "YOU'RE A NOOB ☕😂";
+
       }, 2000);
+
     }
+
   </script>
 
 </body>
