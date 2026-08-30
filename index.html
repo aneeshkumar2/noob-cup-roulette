@@ -1,77 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOOB. | Cup Roulette</title>
+
+  <title>NOOB. | Scratch</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="page">
+  <main class="page">
 
-    <div class="brand">NOOB.</div>
+    <div class="logo">NOOB.</div>
 
-    <div class="tagline">
-      YOUR CUP. YOUR LUCK.
-    </div>
+    <p class="tagline">
+      YOU BOUGHT COFFEE. NOW GET SOMETHING.
+    </p>
 
-    <div class="box">
 
-      <h1>CUP ROULETTE</h1>
+    <section class="card">
 
-      <p class="instruction">
-        Enter the number printed on your cup.
+      <h1>NOOB SCRATCH</h1>
+
+      <p class="subtitle">
+        Enter the number on your cup.
       </p>
 
-
-      <!-- WHEEL -->
-
-      <div class="roulette">
-
-        <div class="pointer">▼</div>
-
-        <div class="wheel" id="wheel">
-
-          <div class="segment segment1">
-            <span>FREE<br>COFFEE</span>
-          </div>
-
-          <div class="segment segment2">
-            <span>50%<br>OFF</span>
-          </div>
-
-          <div class="segment segment3">
-            <span>FREE<br>ADD-ON</span>
-          </div>
-
-          <div class="segment segment4">
-            <span>20%<br>OFF</span>
-          </div>
-
-          <div class="segment segment5">
-            <span>NOOB<br>😭</span>
-          </div>
-
-          <div class="segment segment6">
-            <span>FREE<br>UPGRADE</span>
-          </div>
-
-          <div class="wheel-center">
-            NOOB.
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- CUP NUMBER -->
-
-      <label for="cupNumber">
-        CUP NUMBER
-      </label>
 
       <input
         id="cupNumber"
@@ -82,119 +39,272 @@
       >
 
 
-      <!-- BUTTON -->
-
       <button
-        id="spinButton"
-        onclick="spin()"
+        id="revealButton"
+        onclick="startScratch()"
       >
-        SPIN 🎰
+        REVEAL MY PRIZE
       </button>
 
 
-      <!-- RESULT -->
+      <div
+        id="scratchArea"
+        class="scratch-area hidden"
+      >
 
-      <div id="result"></div>
+        <canvas
+          id="scratchCanvas"
+        ></canvas>
 
-    </div>
+        <div
+          id="prize"
+          class="prize"
+        >
+          ☕<br>
+          <strong>FREE COFFEE</strong>
+        </div>
+
+      </div>
 
 
-    <div class="footer">
+      <p
+        id="message"
+        class="message"
+      ></p>
+
+    </section>
+
+
+    <p class="footer">
       NOOB COFFEE · HYDERABAD
-    </div>
+    </p>
 
-  </div>
+  </main>
 
 
 <script>
 
-let spinning = false;
-let rotation = 0;
+let canvas;
+let ctx;
+let scratching = false;
 
-function spin() {
 
-  if (spinning) return;
+function startScratch() {
 
   const cup =
     document.getElementById("cupNumber").value;
 
-  const wheel =
-    document.getElementById("wheel");
+  const message =
+    document.getElementById("message");
 
-  const result =
-    document.getElementById("result");
+  const area =
+    document.getElementById("scratchArea");
 
   const button =
-    document.getElementById("spinButton");
+    document.getElementById("revealButton");
 
 
   if (!cup || cup < 1 || cup > 100) {
 
-    result.innerHTML =
-      "Enter a cup number between <b>#001–#100</b> 😭";
+    message.innerText =
+      "Enter a cup number from #001 to #100 😭";
 
     return;
+
   }
 
 
-  spinning = true;
+  message.innerText =
+    "SCRATCH TO FIND OUT 👀";
+
+  area.classList.remove("hidden");
 
   button.disabled = true;
 
-  result.innerHTML = "SPINNING... 🎰";
+
+  setupCanvas();
+
+}
 
 
-  rotation +=
-    1800 +
-    Math.floor(Math.random() * 1800);
+function setupCanvas() {
+
+  canvas =
+    document.getElementById("scratchCanvas");
+
+  ctx =
+    canvas.getContext("2d");
 
 
-  wheel.style.transform =
-    `rotate(${rotation}deg)`;
+  const rect =
+    canvas.getBoundingClientRect();
 
 
-  setTimeout(() => {
+  canvas.width =
+    rect.width * window.devicePixelRatio;
 
-    const prizes = [
-
-      "☕ FREE COFFEE",
-
-      "💸 50% OFF",
-
-      "🍪 FREE ADD-ON",
-
-      "😎 20% OFF",
-
-      "😭 YOU'RE A NOOB",
-
-      "🔥 FREE UPGRADE"
-
-    ];
+  canvas.height =
+    rect.height * window.devicePixelRatio;
 
 
-    const prize =
-      prizes[
-        Math.floor(
-          Math.random() * prizes.length
-        )
-      ];
+  ctx.scale(
+    window.devicePixelRatio,
+    window.devicePixelRatio
+  );
 
 
-    result.innerHTML =
-      "YOU GOT<br><strong>" +
-      prize +
-      "</strong>";
+  ctx.fillStyle = "#777";
+
+  ctx.fillRect(
+    0,
+    0,
+    rect.width,
+    rect.height
+  );
 
 
-    spinning = false;
+  ctx.fillStyle = "#fff";
 
-    button.disabled = false;
+  ctx.font =
+    "900 16px Arial";
 
-  }, 3000);
+  ctx.textAlign =
+    "center";
+
+  ctx.fillText(
+    "SCRATCH HERE 👆",
+    rect.width / 2,
+    rect.height / 2
+  );
+
+
+  canvas.addEventListener(
+    "pointerdown",
+    startScratchAction
+  );
+
+  canvas.addEventListener(
+    "pointermove",
+    scratch
+  );
+
+  canvas.addEventListener(
+    "pointerup",
+    stopScratch
+  );
+
+  canvas.addEventListener(
+    "pointerleave",
+    stopScratch
+  );
+
+}
+
+
+function startScratchAction(e) {
+
+  scratching = true;
+
+  scratch(e);
+
+}
+
+
+function stopScratch() {
+
+  scratching = false;
+
+}
+
+
+function scratch(e) {
+
+  if (!scratching) return;
+
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+
+  const x =
+    e.clientX - rect.left;
+
+  const y =
+    e.clientY - rect.top;
+
+
+  ctx.globalCompositeOperation =
+    "destination-out";
+
+
+  ctx.beginPath();
+
+  ctx.arc(
+    x,
+    y,
+    22,
+    0,
+    Math.PI * 2
+  );
+
+  ctx.fill();
+
+
+  checkProgress();
+
+}
+
+
+function checkProgress() {
+
+  const pixels =
+    ctx.getImageData(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    ).data;
+
+
+  let transparent = 0;
+
+
+  for (
+    let i = 3;
+    i < pixels.length;
+    i += 4
+  ) {
+
+    if (pixels[i] < 100) {
+
+      transparent++;
+
+    }
+
+  }
+
+
+  const percentage =
+    transparent /
+    (pixels.length / 4);
+
+
+  if (percentage > 0.45) {
+
+    canvas.style.display =
+      "none";
+
+    document.getElementById(
+      "message"
+    ).innerText =
+      "🎉 YOU FOUND IT!";
+
+  }
 
 }
 
 </script>
 
 </body>
+
 </html>
