@@ -4,115 +4,192 @@
   padding: 0;
 }
 
+
 body {
   min-height: 100vh;
-  background: #111;
-  color: #fff;
 
-  font-family: Arial, Helvetica, sans-serif;
+  background: #111;
+
+  color: white;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
   display: flex;
+
   justify-content: center;
+
   align-items: center;
 
-  text-align: center;
+  padding: 20px;
 
-  padding: 25px;
+  text-align: center;
 }
+
 
 .container {
   width: 100%;
+
   max-width: 430px;
 }
 
+
 .logo {
-  font-size: 54px;
+  font-size: 55px;
+
   font-weight: 900;
 
-  letter-spacing: -4px;
+  letter-spacing: -5px;
 
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
+
 
 .tagline {
   color: #888;
 
   font-size: 14px;
 
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
+
 
 .card {
   background: #1b1b1b;
 
   border: 1px solid #333;
 
-  border-radius: 25px;
+  border-radius: 26px;
 
   padding: 28px 20px 30px;
 
   box-shadow:
-    0 15px 40px rgba(0, 0, 0, 0.4);
+    0 20px 50px rgba(0, 0, 0, 0.45);
 }
 
+
 h1 {
-  font-size: 24px;
+  font-size: 25px;
+
+  font-weight: 900;
+
+  margin-bottom: 7px;
+}
+
+
+.subtitle {
+  color: #888;
+
+  font-size: 14px;
 
   margin-bottom: 8px;
 }
 
-.subtitle {
-  color: #999;
 
-  font-size: 14px;
+/* WHEEL */
 
-  margin-bottom: 15px;
-}
+.wheel-area {
+  width: 300px;
 
+  height: 325px;
 
-/* =========================
-   WHEEL
-========================= */
-
-.wheel-wrap {
-  width: 280px;
-  height: 305px;
-
-  margin: 10px auto 20px;
+  margin: 5px auto 15px;
 
   position: relative;
 }
 
+
 .wheel {
-  width: 280px;
-  height: 280px;
+  width: 300px;
+
+  height: 300px;
 
   position: absolute;
 
-  top: 25px;
   left: 0;
+
+  top: 25px;
 
   border-radius: 50%;
 
-  border: 7px solid white;
+  border: 6px solid white;
 
-  background:
-    conic-gradient(
-      white 0deg 60deg,
-      #222 60deg 120deg,
-      white 120deg 180deg,
-      #222 180deg 240deg,
-      white 240deg 300deg,
-      #222 300deg 360deg
-    );
+  transform-origin: center;
 
   transition:
-    transform 3s cubic-bezier(
-      0.15,
-      0.85,
-      0.25,
+    transform 3s
+    cubic-bezier(
+      0.12,
+      0.8,
+      0.2,
       1
     );
+}
+
+
+/* WHEEL COLORS */
+
+.slice {
+  stroke: #111;
+
+  stroke-width: 2;
+}
+
+
+.light {
+  fill: white;
+}
+
+
+.dark {
+  fill: #222;
+}
+
+
+/* TEXT */
+
+.label {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 11px;
+
+  font-weight: 900;
+
+  text-anchor: middle;
+
+  dominant-baseline: middle;
+}
+
+
+.light-text {
+  fill: #111;
+}
+
+
+.dark-text {
+  fill: white;
+}
+
+
+/* CENTER */
+
+.center {
+  fill: #111;
+
+  stroke: white;
+
+  stroke-width: 5;
+}
+
+
+.center-text {
+  fill: white;
+
+  font-size: 13px;
+
+  font-weight: 900;
 }
 
 
@@ -124,113 +201,27 @@ h1 {
   z-index: 10;
 
   top: 0;
+
   left: 50%;
 
   transform: translateX(-50%);
 
-  font-size: 28px;
-
   color: white;
+
+  font-size: 25px;
 
   line-height: 1;
 }
 
 
-/* CENTER */
-
-.wheel-center {
-  position: absolute;
-
-  width: 68px;
-  height: 68px;
-
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  border-radius: 50%;
-
-  background: #111;
-
-  border: 4px solid white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: white;
-
-  font-size: 13px;
-
-  font-weight: 900;
-
-  z-index: 5;
-}
-
-
-/* PRIZE TEXT */
-
-.wheel-text {
-  position: absolute;
-
-  width: 75px;
-
-  text-align: center;
-
-  font-size: 11px;
-
-  font-weight: 900;
-
-  line-height: 1.15;
-
-  color: #111;
-
-  z-index: 4;
-}
-
-
-/* Six positions */
-
-.text1 {
-  top: 43px;
-  left: 102px;
-}
-
-.text2 {
-  top: 91px;
-  left: 178px;
-}
-
-.text3 {
-  top: 170px;
-  left: 153px;
-}
-
-.text4 {
-  top: 205px;
-  left: 52px;
-}
-
-.text5 {
-  top: 135px;
-  left: 5px;
-}
-
-.text6 {
-  top: 63px;
-  left: 47px;
-}
-
-
-/* =========================
-   INPUT
-========================= */
+/* INPUT */
 
 input {
   width: 100%;
 
-  padding: 17px;
+  height: 55px;
+
+  padding: 0 15px;
 
   border-radius: 13px;
 
@@ -249,19 +240,18 @@ input {
   margin-bottom: 12px;
 }
 
+
 input:focus {
   border-color: white;
 }
 
 
-/* =========================
-   BUTTON
-========================= */
+/* BUTTON */
 
 button {
   width: 100%;
 
-  padding: 17px;
+  height: 55px;
 
   border: none;
 
@@ -278,36 +268,63 @@ button {
   cursor: pointer;
 }
 
+
 button:active {
   transform: scale(0.97);
 }
 
 
-/* =========================
-   RESULT
-========================= */
+button:disabled {
+  opacity: 0.5;
 
-#result {
-  min-height: 30px;
-
-  margin-top: 22px;
-
-  font-size: 20px;
-
-  font-weight: 900;
+  cursor: not-allowed;
 }
 
 
-/* =========================
-   FOOTER
-========================= */
+/* RESULT */
+
+#result {
+  min-height: 50px;
+
+  margin-top: 22px;
+
+  font-size: 18px;
+
+  font-weight: 900;
+
+  line-height: 1.5;
+}
+
+
+/* FOOTER */
 
 .footer {
-  margin-top: 22px;
+  margin-top: 20px;
 
   color: #555;
 
   font-size: 11px;
 
   letter-spacing: 1px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 360px) {
+
+  .wheel-area {
+    transform: scale(0.88);
+
+    transform-origin: top center;
+
+    margin-bottom: -20px;
+  }
+
+  .card {
+    padding-left: 15px;
+
+    padding-right: 15px;
+  }
+
 }
