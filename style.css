@@ -75,7 +75,45 @@ body {
   font-weight: 900;
   font-size: 14px;
 }
+.prize {
+  position: absolute;
+  width: 100px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: #111;
+}
 
+.p1 {
+  top: 35px;
+  left: 90px;
+}
+
+.p2 {
+  top: 90px;
+  right: 15px;
+}
+
+.p3 {
+  bottom: 35px;
+  right: 55px;
+}
+
+.p4 {
+  bottom: 35px;
+  left: 55px;
+}
+
+.p5 {
+  top: 90px;
+  left: 15px;
+}
+
+.p6 {
+  top: 35px;
+  right: 55px;
+}
 .pointer {
   width: 0;
   height: 0;
