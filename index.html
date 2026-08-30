@@ -52,33 +52,58 @@
 
   </div>
 
-  <script>
+<script>
 
-    function spin() {
+let spinning = false;
 
-      const cup = document.getElementById("cupNumber").value;
-      const result = document.getElementById("result");
+function spin() {
 
-      if (!cup || cup < 1 || cup > 100) {
+  if (spinning) return;
 
-        result.innerText =
-          "Enter a cup number from #001 to #100 😭";
+  const cup = document.getElementById("cupNumber").value;
+  const result = document.getElementById("result");
+  const wheel = document.getElementById("wheel");
 
-        return;
-      }
+  if (!cup || cup < 1 || cup > 100) {
+    result.innerText =
+      "Enter a cup number from #001 to #100 😭";
+    return;
+  }
 
-      result.innerText = "🎰 SPINNING...";
+  spinning = true;
 
-      setTimeout(() => {
+  result.innerText = "🎰 SPINNING...";
 
-        result.innerText =
-          "YOU'RE A NOOB ☕😂";
+  const rotation =
+    1440 + Math.floor(Math.random() * 1440);
 
-      }, 2000);
+  wheel.style.transform =
+    `rotate(${rotation}deg)`;
 
-    }
+  setTimeout(() => {
 
-  </script>
+    const prizes = [
+      "☕ FREE COFFEE",
+      "💸 50% OFF",
+      "🍪 FREE ADD-ON",
+      "😎 20% OFF",
+      "😭 YOU'RE A NOOB",
+      "🔥 FREE UPGRADE"
+    ];
+
+    const prize =
+      prizes[Math.floor(Math.random() * prizes.length)];
+
+    result.innerText =
+      `YOU GOT: ${prize}`;
+
+    spinning = false;
+
+  }, 3000);
+
+}
+
+</script>
 
 </body>
 </html>
