@@ -1,15 +1,17 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
 
 body {
-  min-height: 100vh;
-
-  background: #111;
-
+  background: #101010;
   color: white;
 
   font-family:
@@ -17,91 +19,121 @@ body {
     Helvetica,
     sans-serif;
 
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  padding: 20px;
-
   text-align: center;
 }
 
 
-.container {
+.page {
   width: 100%;
-
   max-width: 430px;
+
+  margin: 0 auto;
+
+  padding: 35px 18px 25px;
 }
 
 
-.logo {
-  font-size: 55px;
+.brand {
+  font-size: 56px;
 
-  font-weight: 900;
+  font-weight: 1000;
 
   letter-spacing: -5px;
 
-  margin-bottom: 5px;
-}
-
-
-.tagline {
-  color: #888;
-
-  font-size: 14px;
-
-  margin-bottom: 28px;
-}
-
-
-.card {
-  background: #1b1b1b;
-
-  border: 1px solid #333;
-
-  border-radius: 26px;
-
-  padding: 28px 20px 30px;
-
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.45);
-}
-
-
-h1 {
-  font-size: 25px;
-
-  font-weight: 900;
-
-  margin-bottom: 7px;
-}
-
-
-.subtitle {
-  color: #888;
-
-  font-size: 14px;
+  line-height: 1;
 
   margin-bottom: 8px;
 }
 
 
-/* WHEEL */
+.tagline {
+  color: #777;
 
-.wheel-area {
+  font-size: 11px;
+
+  font-weight: bold;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 28px;
+}
+
+
+.box {
+  width: 100%;
+
+  background: #1b1b1b;
+
+  border: 1px solid #303030;
+
+  border-radius: 24px;
+
+  padding: 28px 18px 30px;
+}
+
+
+h1 {
+  margin: 0 0 8px;
+
+  font-size: 24px;
+
+  font-weight: 900;
+}
+
+
+.instruction {
+  margin: 0;
+
+  color: #888;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   ROULETTE
+========================= */
+
+.roulette {
+
   width: 300px;
 
   height: 325px;
 
-  margin: 5px auto 15px;
-
   position: relative;
+
+  margin: 25px auto 10px;
+
+}
+
+
+.pointer {
+
+  position: absolute;
+
+  top: 0;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  z-index: 20;
+
+  width: 0;
+
+  height: 0;
+
+  border-left: 14px solid transparent;
+
+  border-right: 14px solid transparent;
+
+  border-top: 28px solid white;
+
 }
 
 
 .wheel {
+
   width: 300px;
 
   height: 300px;
@@ -116,146 +148,246 @@ h1 {
 
   border: 6px solid white;
 
-  transform-origin: center;
+  overflow: hidden;
+
+  background: white;
 
   transition:
-    transform 3s
+
+    transform 3.2s
     cubic-bezier(
       0.12,
-      0.8,
-      0.2,
+      0.75,
+      0.18,
       1
     );
+
 }
 
 
-/* WHEEL COLORS */
+/* =========================
+   SIX WHEEL SEGMENTS
+========================= */
 
-.slice {
-  stroke: #111;
+.segment {
 
-  stroke-width: 2;
+  position: absolute;
+
+  width: 50%;
+
+  height: 50%;
+
+  left: 25%;
+
+  top: 25%;
+
+  transform-origin: 50% 100%;
+
+  overflow: hidden;
+
 }
 
 
-.light {
-  fill: white;
-}
+.segment span {
 
+  position: absolute;
 
-.dark {
-  fill: #222;
-}
+  left: 50%;
 
+  top: 20px;
 
-/* TEXT */
+  transform:
+    translateX(-50%);
 
-.label {
-  font-family: Arial, Helvetica, sans-serif;
+  width: 100px;
+
+  text-align: center;
 
   font-size: 11px;
 
   font-weight: 900;
 
-  text-anchor: middle;
+  line-height: 1.15;
 
-  dominant-baseline: middle;
 }
 
 
-.light-text {
-  fill: #111;
+/* Segment shapes */
+
+.segment1 {
+  background: white;
+
+  transform:
+    rotate(0deg)
+    skewY(-30deg);
+}
+
+.segment2 {
+  background: #222;
+
+  transform:
+    rotate(60deg)
+    skewY(-30deg);
+}
+
+.segment3 {
+  background: white;
+
+  transform:
+    rotate(120deg)
+    skewY(-30deg);
+}
+
+.segment4 {
+  background: #222;
+
+  transform:
+    rotate(180deg)
+    skewY(-30deg);
+}
+
+.segment5 {
+  background: white;
+
+  transform:
+    rotate(240deg)
+    skewY(-30deg);
+}
+
+.segment6 {
+  background: #222;
+
+  transform:
+    rotate(300deg)
+    skewY(-30deg);
 }
 
 
-.dark-text {
-  fill: white;
+/* Text colors */
+
+.segment1 span,
+.segment3 span,
+.segment5 span {
+  color: #111;
+}
+
+.segment2 span,
+.segment4 span,
+.segment6 span {
+  color: white;
 }
 
 
-/* CENTER */
+/* =========================
+   CENTER
+========================= */
 
-.center {
-  fill: #111;
+.wheel-center {
 
-  stroke: white;
+  position: absolute;
 
-  stroke-width: 5;
-}
+  width: 70px;
 
+  height: 70px;
 
-.center-text {
-  fill: white;
+  left: 50%;
+
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #111;
+
+  border: 5px solid white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
 
   font-size: 13px;
 
   font-weight: 900;
+
+  z-index: 15;
+
 }
 
 
-/* POINTER */
+/* =========================
+   INPUT
+========================= */
 
-.pointer {
-  position: absolute;
+label {
 
-  z-index: 10;
+  display: block;
 
-  top: 0;
+  color: #777;
 
-  left: 50%;
+  font-size: 10px;
 
-  transform: translateX(-50%);
+  font-weight: 900;
 
-  color: white;
+  letter-spacing: 1px;
 
-  font-size: 25px;
+  margin-top: 5px;
 
-  line-height: 1;
+  margin-bottom: 7px;
+
 }
 
-
-/* INPUT */
 
 input {
+
+  display: block;
+
   width: 100%;
 
   height: 55px;
 
-  padding: 0 15px;
-
-  border-radius: 13px;
+  background: #111;
 
   border: 1px solid #444;
 
-  background: #111;
+  border-radius: 12px;
 
   color: white;
 
-  font-size: 18px;
-
   text-align: center;
+
+  font-size: 18px;
 
   outline: none;
 
   margin-bottom: 12px;
+
 }
 
 
 input:focus {
+
   border-color: white;
+
 }
 
 
-/* BUTTON */
+/* =========================
+   BUTTON
+========================= */
 
 button {
+
   width: 100%;
 
   height: 55px;
 
-  border: none;
+  border: 0;
 
-  border-radius: 13px;
+  border-radius: 12px;
 
   background: white;
 
@@ -265,66 +397,84 @@ button {
 
   font-weight: 900;
 
-  cursor: pointer;
 }
 
 
 button:active {
-  transform: scale(0.97);
+
+  transform: scale(0.98);
+
 }
 
 
 button:disabled {
+
   opacity: 0.5;
 
-  cursor: not-allowed;
 }
 
 
-/* RESULT */
+/* =========================
+   RESULT
+========================= */
 
 #result {
-  min-height: 50px;
 
-  margin-top: 22px;
+  min-height: 55px;
 
-  font-size: 18px;
+  margin-top: 20px;
+
+  font-size: 17px;
 
   font-weight: 900;
 
   line-height: 1.5;
+
 }
 
 
-/* FOOTER */
+#result strong {
+
+  font-size: 21px;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
 
 .footer {
+
   margin-top: 20px;
 
   color: #555;
 
-  font-size: 11px;
+  font-size: 10px;
 
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+
 }
 
 
-/* MOBILE */
+/* =========================
+   SMALL PHONES
+========================= */
 
-@media (max-width: 360px) {
+@media (max-width: 340px) {
 
-  .wheel-area {
-    transform: scale(0.88);
-
-    transform-origin: top center;
-
-    margin-bottom: -20px;
+  .page {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
-  .card {
-    padding-left: 15px;
+  .roulette {
+    transform: scale(0.9);
 
-    padding-right: 15px;
+    transform-origin:
+      top center;
+
+    margin-bottom: -20px;
   }
 
 }
