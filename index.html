@@ -3,235 +3,198 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOOB. CUP ROULETTE</title>
+  <title>NOOB. | Cup Roulette</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <main class="container">
+  <div class="page">
 
-    <div class="logo">NOOB.</div>
+    <div class="brand">NOOB.</div>
 
-    <p class="tagline">
-      Your cup. Your luck. Don't be a noob.
-    </p>
+    <div class="tagline">
+      YOUR CUP. YOUR LUCK.
+    </div>
 
-    <section class="card">
+    <div class="box">
 
       <h1>CUP ROULETTE</h1>
 
-      <p class="subtitle">
-        Enter the number on your cup.
+      <p class="instruction">
+        Enter the number printed on your cup.
       </p>
 
-      <div class="wheel-area">
+
+      <!-- WHEEL -->
+
+      <div class="roulette">
 
         <div class="pointer">▼</div>
 
-        <svg
-          class="wheel"
-          id="wheel"
-          viewBox="0 0 300 300"
-        >
+        <div class="wheel" id="wheel">
 
-          <!-- Wheel sections -->
+          <div class="segment segment1">
+            <span>FREE<br>COFFEE</span>
+          </div>
 
-          <path
-            d="M150 150 L150 10 A140 140 0 0 1 271.24 80 Z"
-            class="slice light"
-          />
+          <div class="segment segment2">
+            <span>50%<br>OFF</span>
+          </div>
 
-          <path
-            d="M150 150 L271.24 80 A140 140 0 0 1 271.24 220 Z"
-            class="slice dark"
-          />
+          <div class="segment segment3">
+            <span>FREE<br>ADD-ON</span>
+          </div>
 
-          <path
-            d="M150 150 L271.24 220 A140 140 0 0 1 150 290 Z"
-            class="slice light"
-          />
+          <div class="segment segment4">
+            <span>20%<br>OFF</span>
+          </div>
 
-          <path
-            d="M150 150 L150 290 A140 140 0 0 1 28.76 220 Z"
-            class="slice dark"
-          />
+          <div class="segment segment5">
+            <span>NOOB<br>😭</span>
+          </div>
 
-          <path
-            d="M150 150 L28.76 220 A140 140 0 0 1 28.76 80 Z"
-            class="slice light"
-          />
+          <div class="segment segment6">
+            <span>FREE<br>UPGRADE</span>
+          </div>
 
-          <path
-            d="M150 150 L28.76 80 A140 140 0 0 1 150 10 Z"
-            class="slice dark"
-          />
-
-          <!-- Prize labels -->
-
-          <text x="215" y="65" class="label light-text">
-            FREE
-          </text>
-          <text x="215" y="80" class="label light-text">
-            COFFEE
-          </text>
-
-          <text x="240" y="150" class="label dark-text">
-            50% OFF
-          </text>
-
-          <text x="205" y="230" class="label light-text">
-            FREE
-          </text>
-          <text x="205" y="245" class="label light-text">
-            ADD-ON
-          </text>
-
-          <text x="85" y="245" class="label dark-text">
-            20% OFF
-          </text>
-
-          <text x="35" y="155" class="label light-text">
-            NOOB 😭
-          </text>
-
-          <text x="75" y="70" class="label dark-text">
-            UPGRADE
-          </text>
-
-          <!-- Center -->
-
-          <circle
-            cx="150"
-            cy="150"
-            r="35"
-            class="center"
-          />
-
-          <text
-            x="150"
-            y="155"
-            class="center-text"
-            text-anchor="middle"
-          >
+          <div class="wheel-center">
             NOOB.
-          </text>
+          </div>
 
-        </svg>
+        </div>
 
       </div>
 
+
+      <!-- CUP NUMBER -->
+
+      <label for="cupNumber">
+        CUP NUMBER
+      </label>
+
       <input
-        type="number"
         id="cupNumber"
+        type="number"
         min="1"
         max="100"
         placeholder="037"
       >
 
-      <button id="spinButton" onclick="spin()">
+
+      <!-- BUTTON -->
+
+      <button
+        id="spinButton"
+        onclick="spin()"
+      >
         SPIN 🎰
       </button>
 
+
+      <!-- RESULT -->
+
       <div id="result"></div>
 
-    </section>
+    </div>
 
-    <p class="footer">
+
+    <div class="footer">
       NOOB COFFEE · HYDERABAD
-    </p>
+    </div>
 
-  </main>
-
-
-  <script>
-
-    let spinning = false;
-    let currentRotation = 0;
-
-    function spin() {
-
-      if (spinning) return;
-
-      const cup =
-        document.getElementById("cupNumber").value;
-
-      const result =
-        document.getElementById("result");
-
-      const wheel =
-        document.getElementById("wheel");
-
-      const button =
-        document.getElementById("spinButton");
+  </div>
 
 
-      // Check cup number
+<script>
 
-      if (!cup || cup < 1 || cup > 100) {
+let spinning = false;
+let rotation = 0;
 
-        result.innerText =
-          "Enter a cup number from #001 to #100 😭";
+function spin() {
 
-        return;
-      }
+  if (spinning) return;
 
+  const cup =
+    document.getElementById("cupNumber").value;
 
-      // Start spinning
+  const wheel =
+    document.getElementById("wheel");
 
-      spinning = true;
+  const result =
+    document.getElementById("result");
 
-      button.disabled = true;
-
-      result.innerText =
-        "🎰 SPINNING...";
-
-
-      // Random number of full rotations
-
-      const extraRotation =
-        1800 + Math.floor(Math.random() * 1800);
-
-      currentRotation += extraRotation;
+  const button =
+    document.getElementById("spinButton");
 
 
-      wheel.style.transform =
-        `rotate(${currentRotation}deg)`;
+  if (!cup || cup < 1 || cup > 100) {
+
+    result.innerHTML =
+      "Enter a cup number between <b>#001–#100</b> 😭";
+
+    return;
+  }
 
 
-      // Show result
+  spinning = true;
 
-      setTimeout(function() {
+  button.disabled = true;
 
-        const prizes = [
-          "☕ FREE COFFEE",
-          "💸 50% OFF",
-          "🍪 FREE ADD-ON",
-          "😎 20% OFF",
-          "😭 YOU'RE A NOOB",
-          "🔥 FREE UPGRADE"
-        ];
+  result.innerHTML = "SPINNING... 🎰";
 
 
-        const prize =
-          prizes[Math.floor(Math.random() * prizes.length)];
+  rotation +=
+    1800 +
+    Math.floor(Math.random() * 1800);
 
 
-        result.innerHTML =
-          "YOU GOT:<br><strong>" +
-          prize +
-          "</strong>";
+  wheel.style.transform =
+    `rotate(${rotation}deg)`;
 
 
-        spinning = false;
+  setTimeout(() => {
 
-        button.disabled = false;
+    const prizes = [
 
-      }, 3000);
+      "☕ FREE COFFEE",
 
-    }
+      "💸 50% OFF",
 
-  </script>
+      "🍪 FREE ADD-ON",
+
+      "😎 20% OFF",
+
+      "😭 YOU'RE A NOOB",
+
+      "🔥 FREE UPGRADE"
+
+    ];
+
+
+    const prize =
+      prizes[
+        Math.floor(
+          Math.random() * prizes.length
+        )
+      ];
+
+
+    result.innerHTML =
+      "YOU GOT<br><strong>" +
+      prize +
+      "</strong>";
+
+
+    spinning = false;
+
+    button.disabled = false;
+
+  }, 3000);
+
+}
+
+</script>
 
 </body>
 </html>
