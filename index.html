@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,33 +12,59 @@
 
 <body>
 
-  <div class="container">
+  <main class="container">
 
     <div class="logo">NOOB.</div>
 
-    <div class="tagline">
+    <p class="tagline">
       You bought coffee. Now gamble responsibly. ☕
-    </div>
+    </p>
 
-    <div class="card">
+    <section class="card">
 
-      <h2>CUP ROULETTE 🎰</h2>
+      <h1>CUP ROULETTE 🎰</h1>
 
       <p class="subtitle">
         Enter your cup number to spin.
       </p>
-      <div class="pointer"></div>
 
-<div class="wheel" id="wheel">
+      <div class="wheel-wrap">
 
-  <div class="prize p1">FREE<br>COFFEE</div>
-  <div class="prize p2">50%<br>OFF</div>
-  <div class="prize p3">FREE<br>ADD-ON</div>
-  <div class="prize p4">20%<br>OFF</div>
-  <div class="prize p5">NOOB<br>😭</div>
-  <div class="prize p6">FREE<br>UPGRADE</div>
+        <div class="pointer">▼</div>
 
-</div>
+        <div class="wheel" id="wheel">
+
+          <div class="wheel-text text1">
+            FREE<br>COFFEE
+          </div>
+
+          <div class="wheel-text text2">
+            50% OFF
+          </div>
+
+          <div class="wheel-text text3">
+            FREE<br>ADD-ON
+          </div>
+
+          <div class="wheel-text text4">
+            20% OFF
+          </div>
+
+          <div class="wheel-text text5">
+            NOOB 😭
+          </div>
+
+          <div class="wheel-text text6">
+            UPGRADE
+          </div>
+
+          <div class="wheel-center">
+            NOOB.
+          </div>
+
+        </div>
+
+      </div>
 
       <input
         type="number"
@@ -47,72 +74,80 @@
         placeholder="037"
       >
 
-      <button onclick="spin()">
+      <button id="spinButton" onclick="spin()">
         SPIN 🎰
       </button>
 
       <div id="result"></div>
 
-    </div>
+    </section>
 
-    <div class="footer">
+    <p class="footer">
       NOOB COFFEE · HYDERABAD
-    </div>
+    </p>
 
-  </div>
+  </main>
 
-<script>
+  <script>
 
-let spinning = false;
+    let spinning = false;
 
-function spin() {
+    function spin() {
 
-  if (spinning) return;
+      if (spinning) return;
 
-  const cup = document.getElementById("cupNumber").value;
-  const result = document.getElementById("result");
-  const wheel = document.getElementById("wheel");
+      const cup =
+        document.getElementById("cupNumber").value;
 
-  if (!cup || cup < 1 || cup > 100) {
-    result.innerText =
-      "Enter a cup number from #001 to #100 😭";
-    return;
-  }
+      const result =
+        document.getElementById("result");
 
-  spinning = true;
+      const wheel =
+        document.getElementById("wheel");
 
-  result.innerText = "🎰 SPINNING...";
+      if (!cup || cup < 1 || cup > 100) {
 
-  const rotation =
-    1440 + Math.floor(Math.random() * 1440);
+        result.innerText =
+          "Enter a cup number from #001 to #100 😭";
 
-  wheel.style.transform =
-    `rotate(${rotation}deg)`;
+        return;
+      }
 
-  setTimeout(() => {
+      spinning = true;
 
-    const prizes = [
-      "☕ FREE COFFEE",
-      "💸 50% OFF",
-      "🍪 FREE ADD-ON",
-      "😎 20% OFF",
-      "😭 YOU'RE A NOOB",
-      "🔥 FREE UPGRADE"
-    ];
+      result.innerText = "🎰 SPINNING...";
 
-    const prize =
-      prizes[Math.floor(Math.random() * prizes.length)];
+      const rotation =
+        1440 + Math.floor(Math.random() * 2160);
 
-    result.innerText =
-      `YOU GOT: ${prize}`;
+      wheel.style.transform =
+        `rotate(${rotation}deg)`;
 
-    spinning = false;
+      setTimeout(function () {
 
-  }, 3000);
+        const prizes = [
+          "☕ FREE COFFEE",
+          "💸 50% OFF",
+          "🍪 FREE ADD-ON",
+          "😎 20% OFF",
+          "😭 YOU'RE A NOOB",
+          "🔥 FREE UPGRADE"
+        ];
 
-}
+        const prize =
+          prizes[Math.floor(Math.random() * prizes.length)];
 
-</script>
+        result.innerText =
+          "YOU GOT: " + prize;
+
+        spinning = false;
+
+      }, 3000);
+
+    }
+
+  </script>
 
 </body>
+
 </html>
