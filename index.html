@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>NOOB CUP ROULETTE</title>
-
+  <title>NOOB. CUP ROULETTE</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -17,52 +14,110 @@
     <div class="logo">NOOB.</div>
 
     <p class="tagline">
-      You bought coffee. Now gamble responsibly. ☕
+      Your cup. Your luck. Don't be a noob.
     </p>
 
     <section class="card">
 
-      <h1>CUP ROULETTE 🎰</h1>
+      <h1>CUP ROULETTE</h1>
 
       <p class="subtitle">
-        Enter your cup number to spin.
+        Enter the number on your cup.
       </p>
 
-      <div class="wheel-wrap">
+      <div class="wheel-area">
 
         <div class="pointer">▼</div>
 
-        <div class="wheel" id="wheel">
+        <svg
+          class="wheel"
+          id="wheel"
+          viewBox="0 0 300 300"
+        >
 
-          <div class="wheel-text text1">
-            FREE<br>COFFEE
-          </div>
+          <!-- Wheel sections -->
 
-          <div class="wheel-text text2">
+          <path
+            d="M150 150 L150 10 A140 140 0 0 1 271.24 80 Z"
+            class="slice light"
+          />
+
+          <path
+            d="M150 150 L271.24 80 A140 140 0 0 1 271.24 220 Z"
+            class="slice dark"
+          />
+
+          <path
+            d="M150 150 L271.24 220 A140 140 0 0 1 150 290 Z"
+            class="slice light"
+          />
+
+          <path
+            d="M150 150 L150 290 A140 140 0 0 1 28.76 220 Z"
+            class="slice dark"
+          />
+
+          <path
+            d="M150 150 L28.76 220 A140 140 0 0 1 28.76 80 Z"
+            class="slice light"
+          />
+
+          <path
+            d="M150 150 L28.76 80 A140 140 0 0 1 150 10 Z"
+            class="slice dark"
+          />
+
+          <!-- Prize labels -->
+
+          <text x="215" y="65" class="label light-text">
+            FREE
+          </text>
+          <text x="215" y="80" class="label light-text">
+            COFFEE
+          </text>
+
+          <text x="240" y="150" class="label dark-text">
             50% OFF
-          </div>
+          </text>
 
-          <div class="wheel-text text3">
-            FREE<br>ADD-ON
-          </div>
+          <text x="205" y="230" class="label light-text">
+            FREE
+          </text>
+          <text x="205" y="245" class="label light-text">
+            ADD-ON
+          </text>
 
-          <div class="wheel-text text4">
+          <text x="85" y="245" class="label dark-text">
             20% OFF
-          </div>
+          </text>
 
-          <div class="wheel-text text5">
+          <text x="35" y="155" class="label light-text">
             NOOB 😭
-          </div>
+          </text>
 
-          <div class="wheel-text text6">
+          <text x="75" y="70" class="label dark-text">
             UPGRADE
-          </div>
+          </text>
 
-          <div class="wheel-center">
+          <!-- Center -->
+
+          <circle
+            cx="150"
+            cy="150"
+            r="35"
+            class="center"
+          />
+
+          <text
+            x="150"
+            y="155"
+            class="center-text"
+            text-anchor="middle"
+          >
             NOOB.
-          </div>
+          </text>
 
-        </div>
+        </svg>
 
       </div>
 
@@ -88,9 +143,11 @@
 
   </main>
 
+
   <script>
 
     let spinning = false;
+    let currentRotation = 0;
 
     function spin() {
 
@@ -105,6 +162,12 @@
       const wheel =
         document.getElementById("wheel");
 
+      const button =
+        document.getElementById("spinButton");
+
+
+      // Check cup number
+
       if (!cup || cup < 1 || cup > 100) {
 
         result.innerText =
@@ -113,17 +176,32 @@
         return;
       }
 
+
+      // Start spinning
+
       spinning = true;
 
-      result.innerText = "🎰 SPINNING...";
+      button.disabled = true;
 
-      const rotation =
-        1440 + Math.floor(Math.random() * 2160);
+      result.innerText =
+        "🎰 SPINNING...";
+
+
+      // Random number of full rotations
+
+      const extraRotation =
+        1800 + Math.floor(Math.random() * 1800);
+
+      currentRotation += extraRotation;
+
 
       wheel.style.transform =
-        `rotate(${rotation}deg)`;
+        `rotate(${currentRotation}deg)`;
 
-      setTimeout(function () {
+
+      // Show result
+
+      setTimeout(function() {
 
         const prizes = [
           "☕ FREE COFFEE",
@@ -134,13 +212,20 @@
           "🔥 FREE UPGRADE"
         ];
 
+
         const prize =
           prizes[Math.floor(Math.random() * prizes.length)];
 
-        result.innerText =
-          "YOU GOT: " + prize;
+
+        result.innerHTML =
+          "YOU GOT:<br><strong>" +
+          prize +
+          "</strong>";
+
 
         spinning = false;
+
+        button.disabled = false;
 
       }, 3000);
 
@@ -149,5 +234,4 @@
   </script>
 
 </body>
-
 </html>
