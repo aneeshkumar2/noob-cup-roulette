@@ -32,14 +32,12 @@ body {
 }
 
 
-.logo {
-  font-size: 56px;
-
-  font-weight: 900;
-
-  letter-spacing: -5px;
-
-  margin-bottom: 8px;
+.logo-image {
+  width: 220px;
+  max-width: 80%;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px;
 }
 
 
