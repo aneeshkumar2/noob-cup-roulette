@@ -34,11 +34,15 @@
       padding: 35px 18px;
     }
 
-    .logo {
-      font-size: 56px;
-      font-weight: 900;
-      letter-spacing: -5px;
-      margin-bottom: 8px;
+    /* LOGO */
+
+    .logo-image {
+      width: 230px;
+      max-width: 80%;
+      height: auto;
+      display: block;
+      margin: 0 auto 18px;
+      border-radius: 8px;
     }
 
     .tagline {
@@ -47,6 +51,8 @@
       letter-spacing: 1.5px;
       margin-bottom: 30px;
     }
+
+    /* MAIN CARD */
 
     .card {
       background: #1b1b1b;
@@ -66,6 +72,8 @@
       margin-bottom: 22px;
     }
 
+    /* INPUT */
+
     input {
       width: 100%;
       height: 55px;
@@ -79,6 +87,12 @@
       margin-bottom: 12px;
     }
 
+    input::placeholder {
+      color: #666;
+    }
+
+    /* BUTTON */
+
     button {
       width: 100%;
       height: 55px;
@@ -88,11 +102,19 @@
       color: #111;
       font-size: 16px;
       font-weight: 900;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.98);
     }
 
     button:disabled {
       opacity: 0.5;
+      cursor: not-allowed;
     }
+
+    /* SCRATCH CARD */
 
     .scratch-area {
       position: relative;
@@ -114,6 +136,8 @@
       color: #111;
       font-size: 35px;
       line-height: 1.3;
+      text-align: center;
+      padding: 15px;
     }
 
     .prize strong {
@@ -127,11 +151,14 @@
       height: 100%;
       z-index: 5;
       touch-action: none;
+      cursor: pointer;
     }
 
     .hidden {
       display: none;
     }
+
+    /* MESSAGE */
 
     .message {
       min-height: 25px;
@@ -139,6 +166,8 @@
       font-size: 15px;
       font-weight: 900;
     }
+
+    /* FOOTER */
 
     .footer {
       margin-top: 22px;
@@ -156,9 +185,15 @@
 
   <main class="page">
 
-    <div class="logo">
-      NOOB.
-    </div>
+
+    <!-- NOOB COFFEE LOGO -->
+
+    <img
+      src="logo.PNG"
+      class="logo-image"
+      alt="Noob Coffee"
+    >
+
 
     <p class="tagline">
       YOU BOUGHT COFFEE. NOW GET SOMETHING.
@@ -167,9 +202,11 @@
 
     <section class="card">
 
+
       <h1>
         NOOB SCRATCH
       </h1>
+
 
       <p class="subtitle">
         Enter the number on your cup.
@@ -198,6 +235,7 @@
         class="scratch-area hidden"
       >
 
+
         <canvas
           id="scratchCanvas"
         ></canvas>
@@ -207,10 +245,16 @@
           id="prize"
           class="prize"
         >
+
           ☕
           <br>
-          <strong>YOUR PRIZE</strong>
+
+          <strong>
+            YOUR PRIZE
+          </strong>
+
         </div>
+
 
       </div>
 
@@ -220,6 +264,7 @@
         class="message"
       ></p>
 
+
     </section>
 
 
@@ -227,15 +272,16 @@
       NOOB COFFEE · HYDERABAD
     </p>
 
+
   </main>
 
 
 <script>
 
 
-/* ============================= */
-/* SUPABASE CONNECTION */
-/* ============================= */
+/* ================================= */
+/* SUPABASE */
+/* ================================= */
 
 
 const SUPABASE_URL =
@@ -246,23 +292,26 @@ const SUPABASE_KEY =
   "sb_publishable_-69XmiwE5j8ljDWQ-bl3WQ_b8gYblfC";
 
 
-/* ============================= */
+/* ================================= */
 /* SCRATCH VARIABLES */
-/* ============================= */
+/* ================================= */
 
 
 let canvas;
 let ctx;
+
 let scratching = false;
+
 let alreadyStarted = false;
 
 
-/* ============================= */
-/* START */
-/* ============================= */
+/* ================================= */
+/* START REVEAL */
+/* ================================= */
 
 
 async function startScratch() {
+
 
   if (alreadyStarted) {
     return;
@@ -270,25 +319,37 @@ async function startScratch() {
 
 
   const cup =
-    document.getElementById("cupNumber").value;
+    document.getElementById(
+      "cupNumber"
+    ).value;
 
 
   const message =
-    document.getElementById("message");
+    document.getElementById(
+      "message"
+    );
 
 
   const area =
-    document.getElementById("scratchArea");
+    document.getElementById(
+      "scratchArea"
+    );
 
 
   const button =
-    document.getElementById("revealButton");
+    document.getElementById(
+      "revealButton"
+    );
 
 
   /* CHECK CUP NUMBER */
 
 
-  if (!cup || cup < 1 || cup > 100) {
+  if (
+    !cup ||
+    cup < 1 ||
+    cup > 100
+  ) {
 
     message.innerText =
       "Enter a cup number from #001 to #100 😭";
@@ -311,15 +372,15 @@ async function startScratch() {
   try {
 
 
-    /* ============================= */
-    /* ASK SUPABASE FOR THE PRIZE */
-    /* ============================= */
+    /* SEND CUP NUMBER TO SUPABASE */
 
 
     const response =
       await fetch(
+
         SUPABASE_URL +
         "/rest/v1/rpc/spin_cup",
+
         {
 
           method: "POST",
@@ -333,18 +394,21 @@ async function startScratch() {
               SUPABASE_KEY,
 
             "Authorization":
-              "Bearer " + SUPABASE_KEY
+              "Bearer " +
+              SUPABASE_KEY
 
           },
 
-          body: JSON.stringify({
+          body:
+            JSON.stringify({
 
-            cup_num:
-              Number(cup)
+              cup_num:
+                Number(cup)
 
-          })
+            })
 
         }
+
       );
 
 
@@ -358,9 +422,7 @@ async function startScratch() {
     );
 
 
-    /* ============================= */
-    /* CHECK RESPONSE */
-    /* ============================= */
+    /* ERROR */
 
 
     if (!response.ok) {
@@ -380,9 +442,7 @@ async function startScratch() {
     }
 
 
-    /* ============================= */
     /* CUP ALREADY USED */
-    /* ============================= */
 
 
     if (!data.success) {
@@ -398,9 +458,9 @@ async function startScratch() {
     }
 
 
-    /* ============================= */
-    /* PUT REAL PRIZE ON CARD */
-    /* ============================= */
+    /* ================================= */
+    /* SHOW THE REAL RANDOM PRIZE */
+    /* ================================= */
 
 
     document.getElementById(
@@ -412,7 +472,7 @@ async function startScratch() {
       "</strong>";
 
 
-    /* SHOW SCRATCH CARD */
+    /* SHOW SCRATCH AREA */
 
 
     area.classList.remove(
@@ -427,13 +487,15 @@ async function startScratch() {
     alreadyStarted = true;
 
 
-    /* SETUP SCRATCH */
+    /* CREATE SCRATCH LAYER */
 
 
     setupCanvas();
 
 
-  } catch (error) {
+  }
+
+  catch (error) {
 
 
     console.error(
@@ -453,9 +515,9 @@ async function startScratch() {
 }
 
 
-/* ============================= */
-/* CREATE SCRATCH CARD */
-/* ============================= */
+/* ================================= */
+/* SETUP SCRATCH CARD */
+/* ================================= */
 
 
 function setupCanvas() {
@@ -496,7 +558,7 @@ function setupCanvas() {
   );
 
 
-  /* GREY SCRATCH LAYER */
+  /* SCRATCH SURFACE */
 
 
   ctx.fillStyle =
@@ -504,14 +566,16 @@ function setupCanvas() {
 
 
   ctx.fillRect(
+
     0,
     0,
     rect.width,
     rect.height
+
   );
 
 
-  /* TEXT */
+  /* SCRATCH TEXT */
 
 
   ctx.fillStyle =
@@ -531,9 +595,13 @@ function setupCanvas() {
 
 
   ctx.fillText(
+
     "SCRATCH HERE 👆",
+
     rect.width / 2,
+
     rect.height / 2
+
   );
 
 
@@ -572,39 +640,52 @@ function setupCanvas() {
 }
 
 
-/* ============================= */
+/* ================================= */
 /* START SCRATCHING */
-/* ============================= */
+/* ================================= */
 
 
 function startScratchAction(e) {
 
+
   scratching = true;
 
-  canvas.setPointerCapture(
-    e.pointerId
-  );
+
+  try {
+
+    canvas.setPointerCapture(
+      e.pointerId
+    );
+
+  }
+
+  catch (error) {
+
+    console.log(error);
+
+  }
+
 
   scratch(e);
 
 }
 
 
-/* ============================= */
+/* ================================= */
 /* STOP SCRATCHING */
-/* ============================= */
+/* ================================= */
 
 
-function stopScratch(e) {
+function stopScratch() {
 
   scratching = false;
 
 }
 
 
-/* ============================= */
-/* SCRATCH */
-/* ============================= */
+/* ================================= */
+/* SCRATCH ACTION */
+/* ================================= */
 
 
 function scratch(e) {
@@ -629,6 +710,9 @@ function scratch(e) {
     rect.top;
 
 
+  /* ERASE THE SCRATCH LAYER */
+
+
   ctx.globalCompositeOperation =
     "destination-out";
 
@@ -637,11 +721,13 @@ function scratch(e) {
 
 
   ctx.arc(
+
     x,
     y,
     24,
     0,
     Math.PI * 2
+
   );
 
 
@@ -653,9 +739,9 @@ function scratch(e) {
 }
 
 
-/* ============================= */
-/* CHECK HOW MUCH IS SCRATCHED */
-/* ============================= */
+/* ================================= */
+/* CHECK SCRATCH PROGRESS */
+/* ================================= */
 
 
 function checkProgress() {
@@ -663,21 +749,26 @@ function checkProgress() {
 
   const pixels =
     ctx.getImageData(
+
       0,
       0,
       canvas.width,
       canvas.height
+
     ).data;
 
 
-  let transparent =
-    0;
+  let transparent = 0;
 
 
   for (
+
     let i = 3;
+
     i < pixels.length;
+
     i += 4
+
   ) {
 
 
@@ -697,7 +788,7 @@ function checkProgress() {
     (pixels.length / 4);
 
 
-  /* REVEAL AFTER 45% SCRATCHED */
+  /* REVEAL WHEN 45% IS SCRATCHED */
 
 
   if (
